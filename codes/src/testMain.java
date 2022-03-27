@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class testMain {
     public static void main(String[] args) {
-        int[] arr = {3,5,3,3};
+        int[] arr = {9,1,7,9,7,9,7};
         Solution test = new Solution();
         int res = test.singleNumber(arr);
         System.out.println(res);

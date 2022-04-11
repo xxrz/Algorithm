@@ -25,11 +25,13 @@ public class testMain {
 //                {3,4,9,2,8,3,1,2,6,9,7,0,2,4,2,0},
 //                {5,1,8,8,4,6,8,5,2,4,1,6,2,2,9,7}};
         int tar = 9;
-        int[][] res = test.findContinuousSequence(tar);
-        for(int i = 0;i<res.length;i++){
-            System.out.println(Arrays.toString(res[i]));
-        }
+        int[] data  = {73,74,75,71,69,72,76,73};
+//        int[] data  = {30,40,20,50};
+        int[] res = test.dailyTemperatures(data);
+//        for(int i = 0;i<res.length;i++){
+//            System.out.println(Arrays.toString(res[i]));
+//        }
 //        System.out.println(res);
-//        System.out.println(Arrays.toString(res));
+        System.out.println(Arrays.toString(res));
     }
 }

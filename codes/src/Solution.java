@@ -1,31 +1,18 @@
 import java.util.*;
 
 class Solution {
-    public int[][] findContinuousSequence(int target) {
-        List<int[]> res = new ArrayList<>();
-        int left = 1,right = 1;
-        int sum = 0;
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] res = new int[temperatures.length];
+        Stack<Integer> s = new Stack<>();
 
-        while(left <= target/2){
-            int c = right;
-            right++;
-
-            sum+=c;
-
-            while(sum >= target){
-                if(sum==target){
-                    int[] ans = new int[c-left+1];
-                    for(int k = left;k <= c;k++){
-                        ans[k-left] = k;
-                    }
-                    res.add(ans);
-                }
-                int d = left;
-                left++;
-                sum = sum-d;
+        for(int i = temperatures.length-1;i>=0;i--){
+            while(!s.empty() && temperatures[s.peek()] <= temperatures[i]){
+                s.pop();
             }
+            res[i] = s.empty()? 0: s.peek()-i;
+            s.add(i);
         }
 
-        return res.toArray(new int[0][]);
+        return res;
     }
 }

@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class Heap {
     // 堆排序额外空间复杂度O(1)
-    public static void heapSort(int[] arr) {
+    public void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
             return;
         }
@@ -26,7 +26,7 @@ public class Heap {
     }
 
     // arr[index]刚来的数，往上
-    public static void heapInsert(int[] arr, int index) {
+    public void heapInsert(int[] arr, int index) {
         while (arr[index] > arr[(index-1)/2]){
             swap(arr,index,(index-1)/2);
             index = (index-1)/2;
@@ -35,7 +35,7 @@ public class Heap {
 
     // arr[index]位置的数，能否往下移动
     // heapSize确定大小heap的大小
-    public static void heapify(int[] arr, int index, int heapSize) {
+    public void heapify(int[] arr, int index, int heapSize) {
         int left = index * 2 + 1; // 左孩子的下标
         while (left < heapSize) { // 下方还有孩子的时候
             // 两个孩子中，谁的值大，把下标给largest
@@ -54,7 +54,7 @@ public class Heap {
         }
     }
 
-    public static void swap(int[] arr, int i, int j) {
+    public void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
@@ -116,41 +116,48 @@ public class Heap {
         System.out.println();
     }
 
-    // for test
+//    // for test
+//    public static void main(String[] args) {
+//
+//        // 默认小根堆
+//        PriorityQueue<Integer> heap = new PriorityQueue<>();
+//        heap.add(6);
+//        heap.add(8);
+//        heap.add(0);
+//        heap.add(2);
+//        heap.add(9);
+//        heap.add(1);
+//
+//        while (!heap.isEmpty()) {
+//            System.out.println(heap.poll());
+//        }
+//
+//        int testTime = 500000;
+//        int maxSize = 100;
+//        int maxValue = 100;
+//        boolean succeed = true;
+//        for (int i = 0; i < testTime; i++) {
+//            int[] arr1 = generateRandomArray(maxSize, maxValue);
+//            int[] arr2 = copyArray(arr1);
+//            heapSort(arr1);
+//            comparator(arr2);
+//            if (!isEqual(arr1, arr2)) {
+//                succeed = false;
+//                break;
+//            }
+//        }
+//        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
+//
+//        int[] arr = generateRandomArray(maxSize, maxValue);
+//        printArray(arr);
+//        heapSort(arr);
+//        printArray(arr);
+//    }
+
     public static void main(String[] args) {
-
-        // 默认小根堆
-        PriorityQueue<Integer> heap = new PriorityQueue<>();
-        heap.add(6);
-        heap.add(8);
-        heap.add(0);
-        heap.add(2);
-        heap.add(9);
-        heap.add(1);
-
-        while (!heap.isEmpty()) {
-            System.out.println(heap.poll());
-        }
-
-        int testTime = 500000;
-        int maxSize = 100;
-        int maxValue = 100;
-        boolean succeed = true;
-        for (int i = 0; i < testTime; i++) {
-            int[] arr1 = generateRandomArray(maxSize, maxValue);
-            int[] arr2 = copyArray(arr1);
-            heapSort(arr1);
-            comparator(arr2);
-            if (!isEqual(arr1, arr2)) {
-                succeed = false;
-                break;
-            }
-        }
-        System.out.println(succeed ? "Nice!" : "Fucking fucked!");
-
-        int[] arr = generateRandomArray(maxSize, maxValue);
-        printArray(arr);
-        heapSort(arr);
-        printArray(arr);
+        int[] data  = {73,74,75,71,69,72,76,73};
+        Heap test = new Heap();
+        test.heapSort(data);
+        System.out.println(Arrays.toString(data));
     }
 }

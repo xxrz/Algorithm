@@ -1,4 +1,4 @@
 package class5_graph;
 
-public class bfas {
+public class bfs {
 }

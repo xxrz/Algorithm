@@ -1347,3 +1347,174 @@ void dfs(int[][] grid, int i, int j, boolean[][] visited) {
     }
 ```
 
+#### [1905. 统计子岛屿](https://leetcode-cn.com/problems/count-sub-islands/)
+
+题目：
+
+给你两个 m x n 的二进制矩阵 grid1 和 grid2 ，它们只包含 0 （表示水域）和 1 （表示陆地）。一个 岛屿 是由 四个方向 （水平或者竖直）上相邻的 1 组成的区域。任何矩阵以外的区域都视为水域。
+
+如果 grid2 的一个岛屿，被 grid1 的一个岛屿 完全 包含，也就是说 grid2 中该岛屿的每一个格子都被 grid1 中同一个岛屿完全包含，那么我们称 grid2 中的这个岛屿为 子岛屿 。
+
+请你返回 grid2 中 子岛屿 的 数目 。
+
+思路：
+
+当岛屿 `B` 中所有陆地在岛屿 `A` 中也是陆地的时候，岛屿 `B` 是岛屿 `A` 的子岛。
+
+**反过来说，如果岛屿 `B` 中存在一片陆地，在岛屿 `A` 的对应位置是海水，那么岛屿 `B` 就不是岛屿 `A` 的子岛**。
+
+那么，我们只要遍历 `grid2` 中的所有岛屿，把那些不可能是子岛的岛屿排除掉，剩下的就是子岛。
+
+解法：
+
+```java
+    public int countSubIslands(int[][] grid1, int[][] grid2) {
+        //先淹掉不符合要求的岛屿：也就是grid2中岛屿位置（1）在grid1中的是海水（0）
+        for(int i = 0;i < grid2.length;i++){
+            for(int j = 0;j < grid2[0].length;j++){
+                if(grid1[i][j]==0 && grid2[i][j]==1){
+                    dfs(grid2,i,j);
+                }
+            }
+        }
+
+        //再统计符合要求的子岛屿
+        int res = 0;
+        for(int i = 0;i < grid2.length;i++){
+            for(int j = 0;j < grid2[0].length;j++){
+                if(grid2[i][j]==1){
+                    res++;
+                    dfs(grid2,i,j);
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public void dfs(int[][] grid,int i ,int j){
+        //base case
+        if(i<0 || i>=grid.length ||j<0||j>=grid[0].length){
+            return;
+        }
+
+        if(grid[i][j]==0){
+            return;
+        }
+
+        grid[i][j] = 0;
+
+        int[] dx = {-1,1,0,0};
+        int[] dy = {0,0,-1,1};
+        for(int k=0;k<4;k++){
+            int x = i + dx[k];
+            int y = j + dy[k];
+            dfs(grid,x,y);
+        }
+    }
+```
+
+#### 694.不同岛屿的数量
+
+题目：
+
+题目还是输入一个二维矩阵，`0` 表示海水，`1` 表示陆地，这次让你计算 **不同的 (distinct)** 岛屿数量
+
+思路:
+
+
+很显然我们得想办法把二维矩阵中的「岛屿」进行转化，变成比如字符串这样的类型，然后利用 HashSet 这样的数据结构去重，最终得到不同的岛屿的个数。**首先，对于形状相同的岛屿，如果从同一起点出发，`dfs` 函数遍历的顺序肯定是一样的**。因为遍历顺序是写死在你的递归函数里面的
+
+![image-20220423133724888](appendix\2总结——7DFS和回溯\image-20220423133724888.png)
+
+如果我用分别用 `1, 2, 3, 4` 代表上下左右，用 `-1, -2, -3, -4` 代表上下左右的撤销，那么可以这样表示它们的遍历顺序：
+
+2, 4, 1, -1, -4, -2
+
+注意：
+
+至于为什么初始调用 `dfs` 函数时的 `dir` 参数可以随意写，这里涉及 DFS 和回溯算法的一个细微差别，前文  [图算法基础](https://labuladong.gitee.io/algo/2/20/48/) 有写，这里就不展开了
+
+因为回溯关注的是边，而不是节点，看回溯树
+
+解法：
+
+```java
+int numDistinctIslands(int[][] grid) {
+    int m = grid.length, n = grid[0].length;
+    // 记录所有岛屿的序列化结果
+    HashSet<String> islands = new HashSet<>();
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (grid[i][j] == 1) {
+                // 淹掉这个岛屿，同时存储岛屿的序列化结果
+                StringBuilder sb = new StringBuilder();
+                // 初始的方向可以随便写，不影响正确性
+                dfs(grid, i, j, sb, 666);
+                islands.add(sb.toString());
+            }
+        }
+    }
+    // 不相同的岛屿数量
+    return islands.size();
+}
+
+void dfs(int[][] grid, int i, int j, StringBuilder sb, int dir) {
+    int m = grid.length, n = grid[0].length;
+    if (i < 0 || j < 0 || i >= m || j >= n 
+        || grid[i][j] == 0) {
+        return;
+    }
+    // 前序遍历位置：进入 (i, j)
+    grid[i][j] = 0;
+    sb.append(dir).append(',');
+    
+    dfs(grid, i - 1, j, sb, 1); // 上
+    dfs(grid, i + 1, j, sb, 2); // 下
+    dfs(grid, i, j - 1, sb, 3); // 左
+    dfs(grid, i, j + 1, sb, 4); // 右
+    
+    // 后序遍历位置：离开 (i, j)
+    sb.append(-dir).append(',');
+}
+
+```
+
+
+
+注意和图里的onPath的区别
+
+这个 `onPath` 数组的操作很像  [回溯算法核心套路](https://labuladong.gitee.io/algo/4/29/105/) 中做「做选择」和「撤销选择」，区别在于位置：回溯算法的「做选择」和「撤销选择」在 for 循环里面，而对 `onPath` 数组的操作在 for 循环外面。
+
+在 for 循环里面和外面唯一的区别就是对根节点的处理。
+
+比如下面两种多叉树的遍历：
+
+```java
+
+onpath
+void traverse(TreeNode root) {
+    if (root == null) return;
+    System.out.println("enter: " + root.val);
+    for (TreeNode child : root.children) {
+        traverse(child);
+    }
+    System.out.println("leave: " + root.val);
+}
+
+回溯
+void traverse(TreeNode root) {
+    if (root == null) return;
+    for (TreeNode child : root.children) {
+        System.out.println("enter: " + child.val);
+        traverse(child);
+        System.out.println("leave: " + child.val);
+    }
+}
+
+```
+
+前者会正确打印所有节点的进入和离开信息，而后者唯独会少打印整棵树根节点的进入和离开信息。
+
+**为什么回溯算法框架会用后者？因为回溯算法关注的不是节点，而是树枝**。
+

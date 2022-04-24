@@ -64,7 +64,7 @@ int BFS(Node start, Node target) {
             int len = q.size();
             for(int i=0;i<len;i++){
                 TreeNode cur = q.poll();
-                //判断是否到达终点，而不是判断当前节点的有效性
+                //判断是否到达终点，判断当前节点是否到达终点
                 if(cur.left==null && cur.right==null){
                     return depth;
                 }
@@ -196,6 +196,8 @@ int BFS(Node start, Node target) {
 
 然后使用该队列进行BFS，同时把遍历到的点0变成2，并且记录遍历的步数，然后当有一个碰到1时，返回步数（桥长度）
 
+【多源最短路问题】
+
 所以使用该队列进行BFS，同时把遍历到的点0变成2（相当于visited数组），并且记录遍历的步数，然后当有一个碰到1时，返回步数（桥长度）【BFS必是最短】。
 
 ```java
@@ -252,6 +254,7 @@ int BFS(Node start, Node target) {
             }
             res++;
         }
+        //因
         return res-1;
     }
 

@@ -201,8 +201,6 @@ List<List<String>> res;
 
 给你输入一个数组 `nums` 和一个正整数 `k`，请你判断 `nums` 是否能够被平分为元素和相同的 `k` 个子集。
 
-
-
 抽象场景：
 
 将 `n` 个标记了不同序号的球（标号为了体现顺序的差异），放入 `k` 个标记了不同序号的盒子中（其中 `n >= k`，每个盒子最终都装有恰好一个球），共有 `P(n, k)` 种不同的方法。现在你来，往盒子里放球，你怎么放？
@@ -275,7 +273,7 @@ List<List<String>> res;
             if(curSum==target){
                 //让下一个桶开始选
                 return backtrack(nums,k-1,target,0,0,used);
-                // k--会出错
+                // k--会出错,--k
                 // return backtrack(nums,k--,target,0,0,used);
             }
     
@@ -342,7 +340,7 @@ List<List<String>> res;
             //当前桶装满了
             if(curSum==target){
                 //让下一个桶开始选
-                // k--会出错,应该是因为改变了k的值所以后面都应该要回溯
+                // k--会出错,应该传--k
                 // Boolean res =  backtrack(nums,k--,target,0,0,used);
                 Boolean res =  backtrack(nums,k-1,target,0,0,used);
                 //记录状态
@@ -418,6 +416,7 @@ List<List<String>> res;
             if(curSum==target){
                 //让下一个桶开始选
                 // k--会出错,应该是因为改变了k的值所以后面都应该要回溯
+                // 不是 ，
                 // Boolean res =  backtrack(nums,k--,target,0,0,used);
                 Boolean res =  backtrack(nums,k-1,target,0,0,used);
                 //记录状态
@@ -452,7 +451,7 @@ List<List<String>> res;
             return false;
         }
     ```
-  
+    
     
 
 ## 4. 组合/子集
@@ -651,7 +650,7 @@ candidates 中的每个数字在每个组合中只能使用 一次 。
             return;
         }
 
-        //剪枝
+        //剪枝，不可
         if(curSum > target) return;
 
         // 回溯算法标准框架
@@ -841,11 +840,15 @@ if (track.size() == k) {
 
 - !used[i-1]
 
+  **used （下标有没有被用过）记录的是当前路径下，被遍历过的数，所以会回溯**
+
+  **path记录的也是path（序列）**
+
   ![image-20220421184808156](appendix\2总结——7DFS和回溯\image-20220421184808156.png)
 
 - used[i-1]
 
-  ![image-20220421184825945](appendix\2总结——7DFS和回溯\image-20220421184825945.png)
+  ![ ](appendix\2总结——7DFS和回溯\image-20220421184825945.png)
 
 ##### [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
 

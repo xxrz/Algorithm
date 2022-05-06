@@ -33,6 +33,7 @@ public class testMain {
 //        }
 //        System.out.println(res);
 //        System.out.println(Arrays.toString(res));
-        int res  = test.numSquares(13);
+        int [] data = {1,0};
+        int res  = test.superPow(2,data);
     }
 }

@@ -33,7 +33,8 @@ public class testMain {
 //        }
 //        System.out.println(res);
 //        System.out.println(Arrays.toString(res));
-        int [] data = {1,0};
-        int res  = test.superPow(2,data);
+        int [] data = {5,7,7,8,8,10};
+        int[][] res  = test.findContinuousSequence(1);
+        System.out.println(Arrays.deepToString(res));
     }
 }

@@ -33,8 +33,8 @@ public class testMain {
 //        }
 //        System.out.println(res);
 //        System.out.println(Arrays.toString(res));
-        int [] data = {5,7,7,8,8,10};
-        int[][] res  = test.findContinuousSequence(1);
-        System.out.println(Arrays.deepToString(res));
+        int [] data = {2,1,2,4,3};
+        int[] res  = test.nextGreaterElements(data);
+        System.out.println(Arrays.toString(res));
     }
 }

@@ -1146,7 +1146,9 @@ void dfs(int[][] grid, int i, int j, boolean[][] visited) {
     }
 ```
 
-#### [1254. 统计封闭岛屿的数目](https://leetcode-cn.com/problems/number-of-closed-islands/)
+#### *[1254. 统计封闭岛屿的数目](https://leetcode-cn.com/problems/number-of-closed-islands/)
+
+>   先用水把边界淹了，因为矩阵边界里为陆地的，已经不是封闭岛屿了
 
 题目：
 
@@ -1350,7 +1352,9 @@ void dfs(int[][] grid, int i, int j, boolean[][] visited) {
     }
 ```
 
-#### [1905. 统计子岛屿](https://leetcode-cn.com/problems/count-sub-islands/)
+#### *[1905. 统计子岛屿](https://leetcode-cn.com/problems/count-sub-islands/)
+
+>  //需要先把不符合要求的子岛屿淹了，不能只是这样简单的判断，不然会有情况没排除，比如第一个示例的最后一个1，就会多算
 
 题目：
 
@@ -1417,7 +1421,9 @@ void dfs(int[][] grid, int i, int j, boolean[][] visited) {
     }
 ```
 
-#### 694.不同岛屿的数量
+#### *694.不同岛屿的数量
+
+>   这题是把图的遍历顺序进行序列化，是把四个方向(上下左右)抽象成1,2,3,4，选择为+（先序），撤销为负（后序）
 
 题目：
 

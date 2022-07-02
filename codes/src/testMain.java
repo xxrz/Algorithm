@@ -33,8 +33,10 @@ public class testMain {
 //        }
 //        System.out.println(res);
 //        System.out.println(Arrays.toString(res));
-        int [] data = {2,1,2,4,3};
-        int[] res  = test.nextGreaterElements(data);
-        System.out.println(Arrays.toString(res));
+        int [] data = {1,2,3,4,5,6,7,0};
+        String s1 = "0.226";
+        String s2 = "0.36";
+//        int res   = test.compare(s1,s2);
+//        System.out.println(res);
     }
 }
